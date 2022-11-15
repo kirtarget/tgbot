@@ -13,9 +13,16 @@ const bot: Telegraf<Context<Update>> = new Telegraf(
   process.env.BOT_TOKEN as string
 );
 
-bot.start((ctx) => {
-  ctx.reply("Hello " + ctx.from.first_name + "!");
-  console.log(ctx.from);
+bot.start(async (ctx) => {
+  const member = await ctx.telegram.getChatMember("@ktagirova", ctx.chat.id);
+  if (member.status === "left") {
+    ctx.telegram.sendMessage(
+      ctx.chat.id,
+      "You are not a member of the channel"
+    );
+  } else {
+    ctx.telegram.sendMessage(ctx.chat.id, "Hello");
+  }
 });
 bot.help((ctx) => {
   ctx.reply("Send /start to receive a greeting");
