@@ -21,7 +21,7 @@ bot.start(async (ctx) => {
       "You are not a member of the channel"
     );
   } else {
-    ctx.telegram.sendMessage(ctx.chat.id, "Hello");
+    ctx.reply("Hello");
   }
 });
 bot.help((ctx) => {
